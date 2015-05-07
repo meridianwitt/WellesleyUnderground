@@ -16,8 +16,9 @@ var taggedURL2 = "wellesley%20in%20comedy"; //encode URI
         console.log("callTumblr")
         var response = HTTP.call("GET", taggedURL1);
         console.log("got response:", response);
-        return response.data;
+        return response.data.response.posts;
   
     }
+      
   });
       

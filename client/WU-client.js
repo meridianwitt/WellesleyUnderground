@@ -11,7 +11,8 @@
   Template.body.events({
      'click #button': function(){
  		Meteor.call('callTumblr', function(error, result){
- 		 console.log(result);
+        var gotPosts = result;
+ 		 console.log(gotPosts);
  		}
 	  )}
  	})
