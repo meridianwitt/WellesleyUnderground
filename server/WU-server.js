@@ -10,18 +10,14 @@ var bioURL = "http://api.tumblr.com/v2/blog/wellesleyunderground.tumblr.com/info
 var taggedURL1 = "http://api.tumblr.com/v2/blog/wellesleyunderground.tumblr.com/posts/?api_key=fuiKNFp9vQFvjLNvx4sUwti4Yb5yGutBN4Xh10LXZhhRKjWlV4"
 
 var taggedURL2 = "wellesley%20in%20comedy"; //encode URI
-//var gotPosts;
 
-    
-//      ,
-//    
-//    insertPost: function(){
-//        for(var i=0, i<){
-//            Posts.insert({
-//
-//            });
-//          
-//        }
-//    }
-//   });
+  Meteor.methods({
+    callTumblr:function(){
+        console.log("callTumblr")
+        var response = HTTP.call("GET", taggedURL1);
+        console.log("got response:", response);
+        return response.data;
+  
+    }
+  });
       
