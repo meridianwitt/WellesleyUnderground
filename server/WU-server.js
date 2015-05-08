@@ -11,12 +11,23 @@ var taggedURL1 = "http://api.tumblr.com/v2/blog/wellesleyunderground.tumblr.com/
 
 var taggedURL2 = "wellesley%20in%20comedy"; //encode URI
 
+var URL = "http://api.tumblr.com/v2/blog/wellesleyunderground.tumblr.com/posts/?&limit=20&offset="
+var key = "&?api_key=wLtyjO5g0zQWJHFRycQxzWIMUjr3j1l16JpWr4aKirMFg6u8cL"
+
   Meteor.methods({
     callTumblr:function(){
         console.log("callTumblr")
-        var response = HTTP.call("GET", taggedURL1);
-        console.log("got response:", response);
-        return response.data.response.posts;
+        console.log(URL+offset+key);
+          var response = HTTP.call("GET", URL+offset+key, 
+                function(error, result){
+                if (!error){
+                    
+                }
+          }) 
+        
+//        var response = HTTP.call("GET", taggedURL1);
+//        console.log("got response:", response);
+//        return response.data.response.posts;
   
     }
       
