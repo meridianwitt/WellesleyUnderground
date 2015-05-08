@@ -17,13 +17,24 @@ var key = "&?api_key=wLtyjO5g0zQWJHFRycQxzWIMUjr3j1l16JpWr4aKirMFg6u8cL"
   Meteor.methods({
     callTumblr:function(){
         console.log("callTumblr")
-        console.log(URL+offset+key);
           var response = HTTP.call("GET", URL+offset+key, 
-                function(error, result){
+                function(error, result){ //error if saved as var
+                var offset = 0;
+                console.log("URL:" + URL+offset+key);
                 if (!error){
-                    
+                    console.log("Number of posts displayed: " + data.response.posts.length)
+                    while (data.response.posts.length == 20) {
+                        console.log("offset: " + offset)
+                        offset += 20;
+                        response();//trying to call it as a function
+                    }
                 }
-          }) 
+        );
+    };
+
+    retrieve_more(0);
+}
+                
         
 //        var response = HTTP.call("GET", taggedURL1);
 //        console.log("got response:", response);
