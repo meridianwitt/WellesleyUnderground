@@ -20,6 +20,7 @@ var offset = 0;
         console.log("callTumblr")
           var response = HTTP.call("GET", URL+offset+key,
                 function(error, result){
+                    console.log("Result before calling for more: "+ result)
                     return Meteor.call('retrieveMore', result);
         
           })},
