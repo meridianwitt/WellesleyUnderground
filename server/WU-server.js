@@ -13,34 +13,32 @@ var taggedURL2 = "wellesley%20in%20comedy"; //encode URI
 
 var URL = "http://api.tumblr.com/v2/blog/wellesleyunderground.tumblr.com/posts/?&limit=20&offset="
 var key = "&?api_key=wLtyjO5g0zQWJHFRycQxzWIMUjr3j1l16JpWr4aKirMFg6u8cL"
+var offset = 0;
 
   Meteor.methods({
     callTumblr:function(){
         console.log("callTumblr")
           var response = HTTP.call("GET", URL+offset+key, 
                 function(error, result){ //error if saved as var
-                var offset = 0;
-                console.log("URL:" + URL+offset+key);
-                if (!error){
-                    console.log("Number of posts displayed: " + data.response.posts.length)
-                    while (data.response.posts.length == 20) {
-                        console.log("offset: " + offset)
-                        offset += 20;
-                        response();//trying to call it as a function
-                    }
+                    console.log("URL:" + URL+offset+key);
+//                    if (!error){
+                        console.log("Number of posts displayed: " + result.response.posts.length)
+                        while (result.response.posts.length == 20) {
+                            console.log("offset: " + offset)
+                            offset += 20;
+                            response();//trying to call it as a function
+                        } return response();
+//                    } 
                 }
-        );
-    };
-
-    retrieve_more(0);
-}
+            )
+       }
                 
         
 //        var response = HTTP.call("GET", taggedURL1);
 //        console.log("got response:", response);
 //        return response.data.response.posts;
   
-    }
+   })
       
-  });
+ 
       
