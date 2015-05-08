@@ -5,10 +5,14 @@
 <body>
   <h1>Welcome to Meteor!</h1>
 
-  {{> hello}}
+  {{> allPosts}}
+
 </body>
 
-<template name="hello">
-  <button id="button">Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="allPosts">
+    <button id="button">Click</button>
+    {{#if gotPosts.length}}
+    <div id="allPosts">{{tumblrBlocks}}</div>
+    {{/if}}
 </template>
+
