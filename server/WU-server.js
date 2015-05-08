@@ -18,16 +18,16 @@ var offset = 0;
   Meteor.methods({
     callTumblr:function(){
         console.log("callTumblr")
-          var response = HTTP.call("GET", URL+offset+key,
-                function(error, result){
-                    console.log("Result before calling for more: "+ result)
-                    return Meteor.call('retrieveMore', result);
+        console.log("URL: " + URL+offset+key)
+          var response = HTTP.call("GET", URL+offset+key);
+          console.log("Result before calling for more: "+ response) //because var response doesnt mean anything yet...
+          return Meteor.call('retrieveMore', response);
         
-          })},
+          },
                 
       
-      retrieveMore:function(result){ //try a helper method
-            if (result.response.posts.length == 20) { //cannot find posts of undefined
+      retrieveMore:function(response){ //try a helper method
+            if (response.data.response.posts.length == 20) { //cannot find posts of undefined
                 offset += 20;
                 var allPosts = HTTP.call("GET", URL+offset+key);
                 return allPosts;
