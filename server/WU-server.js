@@ -18,20 +18,23 @@ var offset = 0;
   Meteor.methods({
     callTumblr:function(){
         console.log("callTumblr")
-          var response = HTTP.call("GET", URL+offset+key, 
-                function(error, result){ //error if saved as var
-                    console.log("URL:" + URL+offset+key);
-//                    if (!error){
-                        console.log("Number of posts displayed: " + result.response.posts.length)
-                        while (result.response.posts.length == 20) {
-                            console.log("offset: " + offset)
-                            offset += 20;
-                            response();//trying to call it as a function
-                        } return response();
-//                    } 
-                }
-            )
-       }
+          var response = HTTP.call("GET", URL+offset+key,
+                function(error, result){
+                    return Meteor.call('retrieveMore', result);
+        
+          })},
+                
+      
+      retrieveMore:function(result){ //try a helper method
+            if (result.response.posts.length == 20) { //cannot find posts of undefined
+                offset += 20;
+                var allPosts = HTTP.call("GET", URL+offset+key);
+                return allPosts;
+            }
+      }       
+
+        
+      
                 
         
 //        var response = HTTP.call("GET", taggedURL1);
