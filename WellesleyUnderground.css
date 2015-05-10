@@ -1,1 +1,17 @@
-/* CSS declarations go here */
+.well{
+    width:150px;
+    height:150px;
+    display: inline-block;
+    float:left;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    margin: 5px;
+    padding: 1px;
+    font-size:9px;
+    text-decoration: none;
+    position: relative;
+}
+
+.title{
+    font-weight: bold;
+}

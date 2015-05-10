@@ -28,7 +28,8 @@ function retrieve(offset){
 //    console.log("offset=", offset, response.data.response.posts.length)
     for (var i in response.data.response.posts){
       Posts.insert( {
-          response.data.response.posts[i]
+          title: response.data.response.posts[i].title,
+          body: response.data.response.posts[i].body,
       }) // store posts in the Posts collection
     }
 //    Session.set("gotPosts", Posts);

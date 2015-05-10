@@ -20,22 +20,6 @@ Posts = new Mongo.Collection("posts");
 Template.hello.helpers({
    postList: function(){
     return Posts.find({});
-   },
-    
-    title: function(){
-     return Posts.
-    },
-    
-    body: function(){
-    
-    },
-    
-    
-//    ,
-//    
-//   makeDivs: function(){
-//   
-//        }
-//   }
+   }
 })
     
