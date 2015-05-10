@@ -53,6 +53,7 @@ var bioURL = "http://api.tumblr.com/v2/blog/wellesleyunderground.tumblr.com/info
 var inDB; //number of posts in db
 var numPosts; //number of posts grabbed from Tumblr
 var difPosts; //difference between number of posts and number in the database
+var offset = 0; //offset needs to change 20 everytime we call for posts so if we called 75 times, offset 75(20), not just 75
 
 function retrieve(offset){ 
     var response = HTTP.call("GET", URL + offset)
@@ -73,14 +74,23 @@ function retrieve(offset){
     inDB = Posts.find().count();
     numPosts = getNumPosts.data.response.blog.posts;
     difPosts = numPosts - inDB;
-   /* Scenarios: difPosts = 0 (all posts are in) and don't call anymore, inDB less than numPosts and need to iterate more, specifically if inDB is less than numPosts and dif is less than 20, change the limit appropriately 
-    if()
-   */
-    console.log("The number of posts gathered: " + numPosts);
-    for (var i=0; i < numPosts/20; i++){
+
+   if(difPosts = null){ //or null?
+      for (var i=0; i < numPosts/20; i++){ //Eni had it as 3 to grab 60 posts
       retrieve(i*20)
-    } 
-    
+    }
+//       else if (difPosts = 0){
+//        //
+//    } else {
+//    
+//    }
+        
+//      
+//    console.log("The number of posts gathered: " + numPosts);
+//    for (var i=0; i < numPosts/20; i++){ //Eni had it as 3 to grab 60 posts
+//      retrieve(i*20)
+//    } 
+//    
 //    console.log("Number of posts: " + Posts.find().count());
     
   });
