@@ -29,7 +29,7 @@ function retrieve(offset){
     for (var i in response.data.response.posts){
       Posts.insert( {
           title: response.data.response.posts[i].title,
-          body: response.data.response.posts[i].body,
+          body: "<body>" + response.data.response.posts[i].body + "</body>",
       }) // store posts in the Posts collection
     }
 //    Session.set("gotPosts", Posts);

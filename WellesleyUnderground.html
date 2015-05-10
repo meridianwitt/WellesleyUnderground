@@ -10,8 +10,29 @@
 
 <template name="hello">
     {{#each postList}}
+   
+    {{#if body}}
+    <div class="well">
+        <span class='title'>{{title}}</span>
+
+        <p>{{body}}</p>
+        
+    </div>
     
-    <div class="well"><span class='title'>{{title}}</span><p>{{body}}</p></div>
+    {{else}}
+    {{#if title}}
+    
+    <div class="well nobody" >
+        <span class='title'>{{title}}</span>
+        
+    </div>
+    
+    {{/if}}
+    
+<!--    last title or content, just picture: at the moment, these don't show up-->
+    
+    
+    {{/if}}
 
 <!--            $(this).hover(function() {$(this).addClass("hovering");}, function() { $(this).removeClass("hovering");}); //hover on this div-->
 
