@@ -41,23 +41,26 @@
     {{#each postList}}
    
     {{#if body}}
-    <a href={{link}}>
+    <a href="{{link}}">
         <div class="well">
         <span class='title'>{{title}}</span>
 
-        <p>{{body}}</p>
+        <div id={{id}}></div>
         
-        </div></a>
+        </div>
+    
+    {{body1}}
+    </a>
     
     {{else}}
     {{#if title}}
     
-    <a href={{link}}>
+<!--    <a href={{link}}>-->
     <div class="well nobody" >
         <span class='title'>{{title}}</span>
         
     </div>
-    </a>
+<!--    </a>-->
     
     {{/if}}    
     

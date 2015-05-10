@@ -32,12 +32,24 @@ Template.posts.helpers({
        var curFilter = Session.get("filter");
   
         if (curFilter != "") {
-              return Events.find({tag: curLoc});
+              return Posts.find({tag: curFilter}); //need a method to find button value in the array of tags
         } else {
-        return Events.find(); }
+        return Posts.find(); }
                 
     
 //    return Posts.find({});
    }
+    ,
+    body1: function(){
+        $("#"+this.id).html(this.body);
+//        console.log("#"+this.id);
+    }
 })
+
+function findTags(arrayTag, curFilter){
+    var index = arrayTag.indexOf(curFilter)
+    if(index != -1){
+        return Posts.find
+    }
+}
     

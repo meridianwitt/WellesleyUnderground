@@ -29,7 +29,8 @@ function retrieve(offset){
     for (var i in response.data.response.posts){
       Posts.insert( {
           title: response.data.response.posts[i].title,
-          body: "<body>" + response.data.response.posts[i].body + "</body>",
+          id: response.data.response.posts[i].id,
+          body: response.data.response.posts[i].body,
           link: response.data.response.posts[i].short_url,
           tags: response.data.response.posts[i].tags,
           user_saved: false //change with .update when user clicks on the star or whatever
@@ -53,7 +54,9 @@ function retrieve(offset){
 
    if(difPosts == numPosts){ //or null?
       console.log("Num iterations: " + numPosts/20);
-    for (var i=0; i < numPosts/20; i++){ //Eni had it as 3 to grab 60 posts
+              
+//for (var i=0; i < numPosts/20; i++
+    for (var i=0; i < 5; i++){ //Eni had it as 3 to grab 60 posts
       retrieve(i*20);
     }
    }
