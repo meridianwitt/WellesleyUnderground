@@ -22,19 +22,20 @@ Template.hello.helpers({
     return Posts.find({});
    },
     
-   makeDivs: function(){
-   for(var i = 0; i<Posts.length; i++){ //erroring here. done before calling any of the other callTumblr functions, so i added if statement
-            var onePost = Posts[i];
-//                console.log(onePost.title);
-            var onePostDiv = document.createElement("div");
-            onePostDiv.setAttribute("class","well");
-            onePostDiv.innerHTML = "<span class='title'>"+onePost.title+"</span>" + "<p>" +onePost.body+"</p>";
-
-            $(this).hover(function() {$(this).addClass("hovering");}, function() { $(this).removeClass("hovering");}); //hover on this div
-
-            var allPosts = document.getElementById("allPosts");
-            allPosts.appendChild(onePostDiv);
-        }
-   }
+    title: function(){
+     return Posts.
+    },
+    
+    body: function(){
+    
+    },
+    
+    
+//    ,
+//    
+//   makeDivs: function(){
+//   
+//        }
+//   }
 })
     

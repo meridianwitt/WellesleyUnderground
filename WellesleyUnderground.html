@@ -10,6 +10,10 @@
 
 <template name="hello">
     {{#each postList}}
-        
+    
+    <div class="well"><span class='title'>"+onePost.title+"</span>" + "<p>" +onePost.body+"</p></div>
+
+            $(this).hover(function() {$(this).addClass("hovering");}, function() { $(this).removeClass("hovering");}); //hover on this div
+
     {{/each}}
 </template>
