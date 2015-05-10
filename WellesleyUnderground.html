@@ -5,10 +5,39 @@
 <body>
   <h1>Welcome to Meteor!</h1>
 
-  {{> hello}}
+  {{> nav}}
+  {{> posts}}
 </body>
 
-<template name="hello">
+<template name="nav">
+
+    <div class="btn-group">
+    
+    <button type="button" class="btn btn-primary filter">Past Young Alum of the Month</button>    
+    <button type="button" class="btn btn-primary filter">Open Letter Series</button>          
+
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Wellesley In 
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li class="filter"><a href="#">Comedy</a></li>
+            <li class="filter"><a href="#">Politics</a></li>
+            <li class="filter"><a href="#">STEM</a></li>
+            <li class="filter"><a href="#">Tech</a></li>
+             <li class="filter"><a href="#">The World</a></li>
+        </ul>
+    </div>
+        
+    <button type="button" class="btn btn-primary filter">Wellesley Writes</button>     
+    <button type="button" class="btn btn-primary filter">Wellesley Reviews</button>
+        
+    </div>
+    
+
+</template>
+    
+
+<template name="posts">
     {{#each postList}}
    
     {{#if body}}
