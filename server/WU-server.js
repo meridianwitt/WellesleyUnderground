@@ -30,6 +30,7 @@ function retrieve(offset){
       Posts.insert( {
           title: response.data.response.posts[i].title,
           body: "<body>" + response.data.response.posts[i].body + "</body>",
+          link: response.data.response.posts[i].short_url
       }) // store posts in the Posts collection
     }
 //    Session.set("gotPosts", Posts);
