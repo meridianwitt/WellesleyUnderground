@@ -13,38 +13,6 @@
 //var URL = "http://api.tumblr.com/v2/blog/wellesleyunderground.tumblr.com/posts/?&limit=20&offset="
 //var key = "&?api_key=wLtyjO5g0zQWJHFRycQxzWIMUjr3j1l16JpWr4aKirMFg6u8cL"
 //var offset = 0;
-//
-//  Meteor.methods({
-//    callTumblr:function(){
-//        console.log("callTumblr")
-//        console.log("URL: " + URL+offset+key)
-//          var response = HTTP.call("GET", URL+offset+key);
-//          console.log("Result before calling for more: "+ response) //because var response doesnt mean anything yet...
-//          Session.set("results", Meteor.call('retrieveMore', response));
-//        
-//          },
-//                
-//      
-//      retrieveMore:function(response){ //try a helper method
-//            if (response.data.response.posts.length == 20) { //cannot find posts of undefined
-//                offset += 20;
-//                var allPosts = HTTP.call("GET", URL+offset+key);
-//                return allPosts;
-//            }
-//      }       
-//
-//        
-//      
-//                
-//        
-////        var response = HTTP.call("GET", taggedURL1);
-////        console.log("got response:", response);
-////        return response.data.response.posts;
-//  
-//   })
-//      
-// 
-//      
 
 Posts = new Mongo.Collection("posts");
 
@@ -61,12 +29,13 @@ function retrieve(offset){
     for (var i in response.data.response.posts){
       Posts.insert( response.data.response.posts[i]) // store posts in the Posts collection
     }
+//    Session.set("gotPosts", Posts);
 }
 
 //compare that number to the total number of posts already stored in the database (Posts.find().count())
 //if they are different, calculate that difference and use that to either specify number of times you'll need to repeat the request with a different offset, or if the number is less than 20, than use that number to specify the limit value. 
 
-  Meteor.startup(function(){  //worl on edge casees later, took too long on this
+  Meteor.startup(function(){  //work on edge cases later, took too long on this
     
     var getNumPosts = HTTP.call("GET", bioURL);
     inDB = Posts.find().count();
@@ -80,18 +49,11 @@ function retrieve(offset){
       console.log("Num iterations: " + numPosts/20);
     for (var i=0; i < numPosts/20; i++){ //Eni had it as 3 to grab 60 posts
       retrieve(i*20);
-    } 
+    }
    }
       console.log("Number in database after: " + inDB);
-  })
-
-  
-    
-//      
-//    console.log("The number of posts gathered: " + numPosts);
-//    for (var i=0; i < numPosts/20; i++){ //Eni had it as 3 to grab 60 posts
-//      retrieve(i*20)
-//    } 
-//    
-//    console.log("Number of posts: " + Posts.find().count());
-//  }*/
+      
+      Meteor.publish('thePosts', function(){
+       return Posts.find({});
+      })
+    })
