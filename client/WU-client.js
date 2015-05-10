@@ -1,6 +1,7 @@
  Posts = new Meteor.Collection('posts');
 
-  Session.setDefault("totalPosts", 0);
+  Session.setDefault("results", []);
+
 
   Template.body.helpers({
 	total: function(){
@@ -11,8 +12,8 @@
   Template.body.events({
      'click #button': function(){
  		Meteor.call('callTumblr', function(error, result){
-        var gotPosts = result;
- 		 console.log(gotPosts);
+        Session.get("results");
+        console.log(results)
  		}
 	  )}
  	})
