@@ -6,7 +6,7 @@
   <h1>Welcome to Meteor!</h1>
 
   {{> nav}}
-  {{> posts}}
+  {{> allPosts}}
 </body>
 
 <template name="nav">
@@ -37,8 +37,12 @@
 </template>
     
 
+<template name="allPosts">
+    <div id="allPosts"></div>
+</template>
+
 <template name="posts">
-    {{#each postList}}
+   {{#each postList}}
    
     {{#if body}}
     <a href="{{link}}">
