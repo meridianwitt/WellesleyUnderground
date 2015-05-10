@@ -17,6 +17,8 @@ var filter;
 //when server is ready
 Meteor.subscribe('thePosts');
 Posts = new Mongo.Collection("posts");
+Session.set("allPosts", Posts);
+console.log("Session variables: " + allPosts);
 
 Template.nav.events({ //give all the buttons a filter class, innerHTML will be used as session variable, 
       "click .filter": function(event){
@@ -32,8 +34,10 @@ Template.posts.helpers({
        var curFilter = Session.get("filter");
   
         if (curFilter != "") {
-              return Posts.find({tag: curFilter}); //need a method to find button value in the array of tags
+//            Session.set("allPosts", Posts.find({tag: curFilter}));
+            return Posts.find({tag: curFilter}); //need a method to find button value in the array of tags
         } else {
+//        Session.set("allPosts", Posts.find());
         return Posts.find(); }
                 
     
@@ -49,10 +53,10 @@ Template.posts.helpers({
 Template.allPosts.helpers({
     makeDivs: function(){
     
-    var gotPosts = Session.get("gotPosts");
-        console.log("Got seesion variable:" + gotPosts);
-       for(var i = 0; i<gotPosts.length; i++){ //erroring here. done before calling any of the other callTumblr functions, so i added if statement
-                var onePost = gotPosts[i];
+       var allPosts = Session.get("allPosts");
+       console.log("Got session variable:" + allPosts);
+       for(var i = 0; i<allPosts.length; i++){ //erroring here. done before calling any of the other callTumblr functions, so i added if statement
+                var onePost = allPosts[i];
 //                console.log(onePost.title);
                 var onePostDiv = document.createElement("div");
                 onePostDiv.setAttribute("class","well");
@@ -72,4 +76,3 @@ function findTags(arrayTag, curFilter){
         return Posts.find
     }
 }
-    
