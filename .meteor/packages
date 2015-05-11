@@ -11,3 +11,4 @@ twbs:bootstrap
 jquery
 accounts-ui
 d3js:d3
+accounts-password

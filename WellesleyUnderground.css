@@ -1,8 +1,12 @@
+#intro{
+ margin: 2%;   
+}
+
 .well{
     width:150px;
     height:150px;
     display: inline-block;
-    float:left;
+/*    float:left;*/
     overflow-y: hidden;
     overflow-x: hidden;
     margin: 5px;
@@ -11,6 +15,10 @@
     text-decoration: none;
     position: relative;
 /*    z-index: -1;*/
+}
+
+#posts{
+    clear:top;
 }
 
 .title{
@@ -43,8 +51,8 @@ a{
 
 #circleCount{
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 2%;
+    right: 3.5%;
     height: 150px;
     width: 150px;
     background-color: pink;

@@ -14,6 +14,7 @@
 // 	})
 
 var filter;
+var arrayTags = [];
 //when server is ready
 Meteor.subscribe('thePosts');
 Posts = new Mongo.Collection("posts");
@@ -30,9 +31,14 @@ Template.nav.events({ //give all the buttons a filter class, innerHTML will be u
 Template.posts.helpers({
    postList: function(){ //received session variable and filters accordingly
        var curFilter = Session.get("filter");
-  
         if (curFilter != "") {
-              return Posts.find({tag: curFilter}); //need a method to find button value in the array of tags
+            var PostListF = [];
+              for(var i in Posts){
+                if(findTags(Posts[i], curFilter)){
+                    PostListF.push(Posts[i]);
+                }
+              }
+              return PostListF; //need a method to find button value in the array of tags
         } else {
         return Posts.find(); }
                 
@@ -59,13 +65,21 @@ Template.posts.helpers({
 //        console.log(actualBody);
 //        return actualBody;
 //        console.log("#"+this.id);
+    },
+    
+    filter: function(){
+    
     }
 })
 
-function findTags(arrayTag, curFilter){
-    var index = arrayTag.indexOf(curFilter)
+function findTags(onePost, curFilter){ //findTags(Posts[i]
+    arrayTags = onePost.tags;
+    var index = arrayTags.indexOf(curFilter)
     if(index != -1){
-        return Posts.find
+        return true;
+    } else{
+        return false;
     }
+    
 }
     

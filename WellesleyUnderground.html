@@ -3,10 +3,13 @@
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
+    <div id="intro">
   {{> loginButtons}}
-  {{> d3}}
+  <h1>Wellesley Underground</h1>
   {{> nav}}
+    </div>
+  {{> d3}}
+  
   {{> posts}}
 </body>
 
@@ -45,6 +48,7 @@
     
 
 <template name="posts"> <!--what about pictures? the ones with not title, just pic-->
+    <div id="posts">
     {{#each postList}}
    
     {{#if body}}
@@ -73,4 +77,5 @@
     {{/if}}
 
     {{/each}}
+    </div>
 </template>
