@@ -4,14 +4,15 @@
 
 <body>
   <h1>Welcome to Meteor!</h1>
+  {{> loginButtons}}
   {{> d3}}
   {{> nav}}
   {{> posts}}
 </body>
 
 <template name="d3">
-  <svg id="clickArea">   
-      <g><text x="100" y="10">Click anywhere in this rectangle</text></g>
+  <svg id="circleCount">   
+      <g><text x="50" y="50">Where circle goes</text></g>
   </svg>
 </template>
 
