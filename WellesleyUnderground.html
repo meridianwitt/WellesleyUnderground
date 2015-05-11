@@ -1,5 +1,5 @@
 <head>
-  <title>WellesleyUnderground</title>
+  <title>Wellesley Underground</title>
 </head>
 
 <body>
@@ -37,7 +37,7 @@
 </template>
     
 
-<template name="posts">
+<template name="posts"> <!--what about pictures? the ones with not title, just pic-->
     {{#each postList}}
    
     {{#if body}}
@@ -45,22 +45,21 @@
         <div class="well">
         <span class='title'>{{title}}</span>
 
-        <div id={{id}}></div>
+        <p>{{body1}}</p>
+<!--            {{img}} see if there is an image-->
         
         </div>
-    
-    {{body1}}
     </a>
     
     {{else}}
     {{#if title}}
     
-<!--    <a href={{link}}>-->
+    <a href="{{link}}">
     <div class="well nobody" >
         <span class='title'>{{title}}</span>
         
     </div>
-<!--    </a>-->
+    </a>
     
     {{/if}}    
     

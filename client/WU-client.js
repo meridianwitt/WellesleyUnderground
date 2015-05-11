@@ -38,10 +38,26 @@ Template.posts.helpers({
                 
     
 //    return Posts.find({});
-   }
-    ,
+   },
     body1: function(){
-        $("#"+this.id).html(this.body);
+        //an image
+        //var wholeBody = actualBody;
+        //wholeBody.getElementsByTagName("figure") or img?
+        //try getting .attr("img"), if has .attr()
+        //or if actualbody[0] or actualBody[1] = "figure.tmblr-full" or figure {insert <img src=actualbody[0].firstElementChild.currentSrc></img>}
+        
+        var body = "";
+        var actualBody = $.parseHTML(this.body); //gives an array and the text is innerText of each item in the array...
+        console.log(actualBody);
+//        console.log("Beginning of one post")
+        for (var i in actualBody){
+//            console.log("Body pieces: " + actualBody[i]); //if I could make all of these one string...
+            body += actualBody[i].innerText;
+        }
+//        console.log("This is my body: " + body);
+        return body;
+//        console.log(actualBody);
+//        return actualBody;
 //        console.log("#"+this.id);
     }
 })
