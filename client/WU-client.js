@@ -30,17 +30,20 @@ Template.nav.events({ //give all the buttons a filter class, innerHTML will be u
 
 Template.posts.helpers({
    postList: function(){ //received session variable and filters accordingly
-       var curFilter = Session.get("filter");
-        if (curFilter != "") {
-            var PostListF = [];
-              for(var i in Posts){
-                if(findTags(Posts[i], curFilter)){
-                    PostListF.push(Posts[i]);
-                }
-              }
-              return PostListF; //need a method to find button value in the array of tags
-        } else {
-        return Posts.find(); }
+//       var curFilter = Session.get("filter");
+//        if (curFilter != "") {
+//            var PostListF = [];
+//            var postF = Posts.find(); //assume it would work here
+//            console.log("postF: " + postF);
+//              for(var i in postF){
+//                if(findTags(postF[i], curFilter)){
+//                    PostListF.push(postF[i]);
+//                }
+//              }
+//              return PostListF; //need a method to find button value in the array of tags
+//        } else {
+        return Posts.find(); //Posts.find() works here
+//   }
                 
     
 //    return Posts.find({});
@@ -74,6 +77,7 @@ Template.posts.helpers({
 
 function findTags(onePost, curFilter){ //findTags(Posts[i]
     arrayTags = onePost.tags;
+    console.log("Array tags: " + arrayTags);
     var index = arrayTags.indexOf(curFilter)
     if(index != -1){
         return true;
