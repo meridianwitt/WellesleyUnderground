@@ -9,3 +9,5 @@ insecure
 http
 twbs:bootstrap
 jquery
+accounts-ui
+d3js:d3

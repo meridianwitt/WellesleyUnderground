@@ -48,7 +48,7 @@ Template.posts.helpers({
         
         var body = "";
         var actualBody = $.parseHTML(this.body); //gives an array and the text is innerText of each item in the array...
-        console.log(actualBody);
+//        console.log(actualBody);
 //        console.log("Beginning of one post")
         for (var i in actualBody){
 //            console.log("Body pieces: " + actualBody[i]); //if I could make all of these one string...

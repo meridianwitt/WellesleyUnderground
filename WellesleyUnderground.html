@@ -4,10 +4,16 @@
 
 <body>
   <h1>Welcome to Meteor!</h1>
-
+  {{> d3}}
   {{> nav}}
   {{> posts}}
 </body>
+
+<template name="d3">
+  <svg id="clickArea">   
+      <g><text x="100" y="10">Click anywhere in this rectangle</text></g>
+  </svg>
+</template>
 
 <template name="nav">
 
