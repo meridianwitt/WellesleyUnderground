@@ -15,6 +15,7 @@
 //var offset = 0;
 
 Posts = new Mongo.Collection("posts");
+//Session.setDefault("filter","");
 
 var URL = "http://api.tumblr.com/v2/blog/wellesleyunderground.tumblr.com/posts/?api_key=wLtyjO5g0zQWJHFRycQxzWIMUjr3j1l16JpWr4aKirMFg6u8cL&offset=";  // notice that I made some changes to the URL
 var bioURL = "http://api.tumblr.com/v2/blog/wellesleyunderground.tumblr.com/info?api_key=wLtyjO5g0zQWJHFRycQxzWIMUjr3j1l16JpWr4aKirMFg6u8cL";
@@ -33,7 +34,8 @@ function retrieve(offset){
           body: response.data.response.posts[i].body,
           link: response.data.response.posts[i].short_url,
           tags: response.data.response.posts[i].tags,
-          user_saved: false //change with .update when user clicks on the star or whatever
+          user_saved: false, //change with .update when user clicks on the star or whatever
+          filter: false
       }) // store posts in the Posts collection
     }
 //    Session.set("gotPosts", Posts);
@@ -62,7 +64,40 @@ function retrieve(offset){
    }
       console.log("Number in database after: " + inDB);
       
+    Meteor.methods({
+    filtered: function(sess){
+        var curFilter = sess; //undefined at the moment
+        console.log("This is the current filter: " + curFilter) //crashes after this
+        var postF = Posts.find({}); //assume it would work here
+              postF.forEach(function(post){ //also useful for counter
+                  Posts.update(this, {filter:false});
+//                  console.log("test"); //proof that it is going through eachs
+                if(findTags(post, curFilter)){ //up to here seems to be right...
+                    Posts.update(this, {filter: true})}})
+                    return Posts.find({filter: true});
+    }
+  })
+      
       Meteor.publish('thePosts', function(){
        return Posts.find({});
       })
     })
+  
+  
+  
+  
+function findTags(onePost, curFilter){ //findTags(Posts[i], ignoreCase
+    arrayTags = onePost.tags;
+    var index;
+    for(var i in arrayTags){ //try to ignore case 
+      arrayTags[i] = arrayTags[i].toLowerCase();}
+      console.log("array tags: " + arrayTags);
+      index = $.inArray(curFilter, arrayTags);
+        if(index != -1){
+            console.log("got true");
+            return true;
+        } else {
+            console.log("got false");
+            return false;
+        }  
+    }
