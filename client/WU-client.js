@@ -74,6 +74,7 @@ function findTags(onePost, curFilter){ //findTags(Posts[i], ignoreCase
     var index;
     for(var i in arrayTags){ //try to ignore case 
       arrayTags[i] = arrayTags[i].toLowerCase();}
+      console.log("array tags: " + arrayTags);
       index = $.inArray(curFilter, arrayTags);
         if(index != -1){
             console.log("got true");
