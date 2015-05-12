@@ -24,18 +24,19 @@ Template.posts.helpers({
             var postF = Posts.find(); //assume it would work here
               postF.forEach(function(post){ //also useful for counter
 //                  console.log("test"); //proof that it is going through eachs
-                if(findTags(post, curFilter)){
+                if(findTags(post, curFilter)){ //up to here seems to be right...
                     PostsF.insert({post: post}); //counter needed later
                     PostsF.forEach(function(postF){
                         console.log("in PostsF");
-                    })
-                }
-              }) 
+                    })}})
+//                return Posts.find();
+                    console.log("done filter function")
+                
 //              return PostListF; //need a method to find button value in the array of tags
         } else {
-        PostListF = Posts.find(); //Posts.find() works here
-        counter = Posts.find().count
-   } return PostListF;
+        return Posts.find(); //Posts.find() works here
+//        counter = Posts.find().count
+   } 
                 
     
 //    return Posts.find({});
@@ -75,8 +76,10 @@ function findTags(onePost, curFilter){ //findTags(Posts[i], ignoreCase
       arrayTags[i] = arrayTags[i].toLowerCase();}
       index = $.inArray(curFilter, arrayTags);
         if(index != -1){
+            console.log("got true");
             return true;
         } else {
+            console.log("got false");
             return false;
         }  
     }
