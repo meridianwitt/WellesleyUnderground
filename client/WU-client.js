@@ -8,7 +8,7 @@ Session.setDefault("filter", "");
 
 Template.nav.events({ //give all the buttons a filter class, innerHTML will be used as session variable, 
       "click .filter": function(event){
-           var filterB = event.target.innerHTML; 
+           var filterB = event.target.innerHTML; //also go to thge WU site and get the EXACT TAGS
            filter = filterB.toLowerCase();
 //           console.log(filter); 
            Session.set("filter", filter);
@@ -31,6 +31,7 @@ Template.posts.helpers({
                     })}})
 //                return Posts.find();
                     console.log("done filter function")
+                    return PostsF.find();
                 
 //              return PostListF; //need a method to find button value in the array of tags
         } else {
