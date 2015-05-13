@@ -84,7 +84,7 @@ function retrieve(offset){
 ////                    return Posts.find({filter: true});
         console.log("Number of filtered posts found: " + Posts.find({tags: {$in: [curFilter]}}).count());
 //        return Posts.find({tags: {$in: [curFilter]}}).fetch();//maximum call stack exceeded undefined
-        return Posts.find({tags: {$in: [curFilter]}}).fetch());//maximum call stack exceeded undefined
+        return Posts.find({tags: {$in: [curFilter]}}).fetch();//maximum call stack exceeded undefined without .fetch()
     }
   })
       

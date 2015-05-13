@@ -1,4 +1,4 @@
-var filter;
+var filter = "";
 var arrayTags = [];
 //when server is ready
 Meteor.subscribe('thePosts');
@@ -29,7 +29,7 @@ Template.posts.helpers({
 //                    Posts.update(this, {filter: true})}})
 //                    return Posts.find({filter: true});
                 Meteor.call('filtered', returnSess());
-                return Session.get("postList");
+//                return postListF; 
 //              return PostListF; //need a method to find button value in the array of tags
         } else {
         return Posts.find(); //Posts.find() works here
