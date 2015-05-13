@@ -32,7 +32,8 @@ Template.posts.helpers({
 //                if(findTags(post, curFilter)){ //up to here seems to be right...
 //                    Posts.update(this, {filter: true})}})
 //                    return Posts.find({filter: true});
-                Meteor.call('filtered', returnSess());
+//                Meteor.call('filtered', returnSess());
+                return Posts.find({tags: {$in: [curFilter]}});
 //              return PostListF; //need a method to find button value in the array of tags
         } else {
         return Posts.find(); //Posts.find() works here
