@@ -39,7 +39,7 @@
     </div>
         
     <button type="button" class="btn btn-primary filter">Wellesley Writes</button>     
-    <button type="button" class="btn btn-primary filter">wu reviews</button>
+    <button type="button" class="btn btn-primary filter">Wellesley Reviews</button>
         
     </div>
     
@@ -49,42 +49,33 @@
 
 <template name="posts"> <!--what about pictures? the ones with not title, just pic-->
     <div id="posts">
-    
-<!--    {{#if filtered}}-->
-    
-<!--        divs generated in client because the posts are returned as an array...wait no each should be able to iterate over an array-->
+    {{#each postList}}
+   
+    {{#if body}}
+    <a href="{{link}}">
+        <div class="well">
+        <span class='title'>{{title}}</span>
+
+        <p>{{body1}}</p>
+<!--            {{img}} see if there is an image-->
         
-<!--    {{else}} -->
-<!--        going through the returned collection-->
-        {{#each postList}}
-
-        {{#if body}}
-        <a href="{{link}}">
-            <div class="well">
-            <span class='title'>{{title}}</span>
-
-            <p>{{body1}}</p>
-    <!--            {{img}} see if there is an image-->
-
-            </div>
-        </a>
-
-        {{else}}
-            {{#if title}}
-
-            <a href="{{link}}">
-            <div class="well nobody" >
-                <span class='title'>{{title}}</span>
-
-            </div>
-            </a>
-
-            {{/if}}    
-
-        {{/if}}
-
-        {{/each}}
+        </div>
+    </a>
+    
+    {{else}}
+    {{#if title}}
+    
+    <a href="{{link}}">
+    <div class="well nobody" >
+        <span class='title'>{{title}}</span>
         
-<!--    {{/if}}-->
+    </div>
+    </a>
+    
+    {{/if}}    
+    
+    {{/if}}
+
+    {{/each}}
     </div>
 </template>
