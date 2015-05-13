@@ -23,25 +23,26 @@
 
     <div class="btn-group">
     
-        <button type="button" class="btn btn-primary filter" value="wellesley alternative class notes">Alternative Class Notes</button> 
-    <button type="button" class="btn btn-primary filter" value="YAOTM entry">Past Young Alum of the Month</button>    
-    <button type="button" class="btn btn-primary filter" value="open letter series">Open Letter Series</button>          
+        <button type="button" class="btn btn-primary filter" value="wellesley alternative class notes">Alternative Class Notes <span class="badge">{{counter wellesley alternative class notes}}</span></button> 
+    <button type="button" class="btn btn-primary filter" value="YAOTM entry">Past Young Alum of the Month <span class="badge">{{counter YAOTM entry}}</span></button>    
+    <button type="button" class="btn btn-primary filter" value="open letter series">Open Letter Series <span class="badge">{{counter open letter series}}</span></button>          
 
     <div class="dropdown" id="wholedrop">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Wellesley In 
         <span class="caret"></span></button>
-        <ul class="dropdown-menu" id="dropdown-list">
-            <li class="filter" value="wellesley in art series"><a href="#">Art</a></li>
-            <li class="filter" value="wellesley in comedy"><a href="#">Comedy</a></li>
-            <li class="filter" value="wellesley in politics series"><a href="#">Politics</a></li>
-            <li class="filter" value="wellesley in STEM series"><a href="#">STEM</a></li>
-            <li class="filter" value="wellesley in tech series"><a href="#">Tech</a></li>
-            <li class="filter" value="wellesley in the world"><a href="#">The World</a></li>
+        <ul class="dropdown-menu" id="dropdown-list"> 
+<!--            want a dynamic way to insert the correct counter arg-->
+            <li class="filter" value="wellesley in art series"><a href="#">Art <span class="badge">{{counter wellesley in art series}}</span></a></li>
+            <li class="filter" value="wellesley in comedy"><a href="#">Comedy <span class="badge">{{counter wellesley in comedy}}</span></a></li>
+            <li class="filter" value="wellesley in politics series"><a href="#">Politics <span class="badge">{{counter wellesley in politics series}}</span></a></li>
+            <li class="filter" value="wellesley in STEM series"><a href="#">STEM <span class="badge">{{counter wellesley in STEM series}}</span></a></li>
+            <li class="filter" value="wellesley in tech series"><a href="#">Tech <span class="badge">{{counter wellesley in tech series}}</span></a></li>
+            <li class="filter" value="wellesley in the world"><a href="#">The World <span class="badge">{{counter wellesley in the world}}</span></a></li>
         </ul>
     </div>
         
-    <button type="button" class="btn btn-primary filter" value="wellesley writes it">Wellesley Writes It</button>     
-    <button type="button" class="btn btn-primary filter" value="wu review">Wellesley Review</button>
+    <button type="button" class="btn btn-primary filter" value="wellesley writes it">Wellesley Writes It <span class="badge">{{counter wellesley writes it}}</span></button>     
+    <button type="button" class="btn btn-primary filter" value="wu review">Wellesley Reviews <span class="badge">{{counter wu review}}</span></button>
         
     </div>
     

@@ -64,50 +64,7 @@ function retrieve(offset){
    }
       console.log("Number in database after: " + inDB);
       
-    Meteor.methods({
-    filtered: function(sess){
-        var curFilter = sess; 
-        console.log("This is the current filter: " + curFilter)
-//        var postF = Posts.find({}); //assume it would work here
-////        console.log("Number of posts: " + Posts.find({}).count())
-//              postF.forEach(function(post){ 
-//                  console.log("Post title: " + post.title); //only printed once? only pulls one title
-////                  Posts.update(this, {filter:false}, {multi:true});
-////                  Posts.update(post._id, {filter:false}, {multi:true}); 
-//                  Posts.update({$set: {filter:false}}, {multi:true}); //set all to false, no need for this
-//                  console.log("test"); //never printed...never gets past update
-//                if(findTags(post, curFilter)){ 
-////                    Posts.update(this, {filter: true})
-////                    Posts.update(this,{$set:{filter:true}}, {multi:true}); //this is undefined?
-//                }})
-                    
-                    console.log("Number of filtered posts: " + Posts.find({tags: {$in: [curFilter]}}).count());
-                    console.log("What is being returned: " + Posts.find({tags: {$in: [curFilter]}}).fetch())
-                    return Posts.find({tags: {$in: [curFilter]}}).fetch();
-//                    return Posts.find({filter: true});
-    }
-  })
-      
       Meteor.publish('thePosts', function(){
        return Posts.find({});
       })
     })
-  
-  
-  
-  
-function findTags(onePost, curFilter){ //findTags(Posts[i], ignoreCase
-    arrayTags = onePost.tags;
-    var index;
-    for(var i in arrayTags){ //try to ignore case 
-      arrayTags[i] = arrayTags[i].toLowerCase();}
-      console.log("array tags: " + arrayTags);
-      index = $.inArray(curFilter, arrayTags);
-        if(index != -1){
-            console.log("got true");
-            return true;
-        } else {
-            console.log("got false");
-            return false;
-        }  
-    }

@@ -25,7 +25,7 @@ Template.nav.events({ //give all the buttons a filter class, innerHTML will be u
    }
 })
 
-Template.posts.helpers({
+Template.posts.helpers({ 
    postList: function(){ //received session variable and filters accordingly
        var curFilter = Session.get("filter");
     
@@ -41,7 +41,7 @@ Template.posts.helpers({
 //                    Posts.update(this, {filter: true})}})
 //                    return Posts.find({filter: true});
 //                Meteor.call('filtered', returnSess());
-                return Posts.find({tags: {$in: [curFilter]}});
+                return Posts.find({tags: {$in: [curFilter]}}); 
 //              return PostListF; //need a method to find button value in the array of tags
         } else {
         return Posts.find(); //Posts.find() works here
@@ -50,7 +50,7 @@ Template.posts.helpers({
     
 //    return Posts.find({});
    },
-    body1: function(){
+    body1: function(){ ///FIX FOR POSTS WITH IMAGES, ones with pictures begin with undefined?
         //an image
         //var wholeBody = actualBody;
         //wholeBody.getElementsByTagName("figure") or img?
@@ -61,6 +61,9 @@ Template.posts.helpers({
         var actualBody = $.parseHTML(this.body); //gives an array and the text is innerText of each item in the array...
 //        console.log(actualBody);
 //        console.log("Beginning of one post")
+//        if (actualBody[0] == undefined){
+//            actualBody[0] = "<img src=actualBody[0]></img>"
+//        }
         for (var i in actualBody){
 //            console.log("Body pieces: " + actualBody[i]); //if I could make all of these one string...
             body += actualBody[i].innerText;
@@ -71,12 +74,22 @@ Template.posts.helpers({
 //        return actualBody;
 //        console.log("#"+this.id);
     }
-//    ,
-//    
-//    filter: function(){
-//    
-//    }
 })
+
+Meteor.wrapAsync(counter, buttonVal); //with this, threw error that the function does not exist
+
+Template.nav.helpers({ //don't know how to load this at the appropriate time
+    counter: function(buttonVal){ //another way to use one counter helper method?
+//        Meteor.startup({
+        return Posts.find({tags: {$in: [buttonVal]}}).count()
+//    })
+    }
+})
+
+//Template.nav.rendered = function(buttonVal) { //deprecated
+//    return Posts.find({tags: {$in: [buttonVal]}}).count()
+////    })
+//}
 //
 //function findTags(onePost, curFilter){ //findTags(Posts[i], ignoreCase
 //    arrayTags = onePost.tags;
