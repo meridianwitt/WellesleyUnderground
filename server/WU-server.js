@@ -22,6 +22,7 @@ var inDB; //number of posts in db
 var numPosts; //number of posts grabbed from Tumblr
 var difPosts; //difference between number of posts and number in the database
 var offset = 0; //offset needs to change 20 everytime we call for posts so if we called 75 times, offset 75(20), not just 75
+var postList = [];
 
 function retrieve(offset){ 
     var response = HTTP.call("GET", URL + offset);
@@ -44,6 +45,7 @@ function retrieve(offset){
 //if they are different, calculate that difference and use that to either specify number of times you'll need to repeat the request with a different offset, or if the number is less than 20, than use that number to specify the limit value. 
 
   Meteor.startup(function(){  //work on edge cases later, took too long on this
+//    Session.set("postList", postList); //cannot define here
     var getNumPosts = HTTP.call("GET", bioURL);
     inDB = Posts.find().count();
     console.log("Num in db: " + inDB);
@@ -64,7 +66,7 @@ function retrieve(offset){
       
     Meteor.methods({
     filtered: function(sess){ //set a session variable so it knows what to do in the HTML
-    Session.set("postList", []);
+//      Session.set("postList", postList); //cant set it here
         var curFilter = sess; 
         console.log("This is the current filter: " + curFilter)
 //        var postF = Posts.find({}); //assume it would work here
@@ -82,7 +84,7 @@ function retrieve(offset){
 ////                    return Posts.find({filter: true});
         console.log("Number of filtered posts found: " + Posts.find({tags: {$in: [curFilter]}}).count());
 //        return Posts.find({tags: {$in: [curFilter]}}).fetch();//maximum call stack exceeded undefined
-        Session.set("postList",Posts.find({tags: {$in: [curFilter]}}).fetch());//maximum call stack exceeded undefined
+        return Posts.find({tags: {$in: [curFilter]}}).fetch());//maximum call stack exceeded undefined
     }
   })
       
