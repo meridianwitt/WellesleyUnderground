@@ -64,6 +64,16 @@ function retrieve(offset){
    }
       console.log("Number in database after: " + inDB);
       
+      //creating an array, considering doing all the counters in a for loop somehow? create an array that holds all the counter totals
+      var filters = ["wellesley alternative class notes", "YAOTM entry", "open letter series", "wellesley in art series", "wellesley in comedy", "wellesley in politics series", "wellesley in STEM series", "wellesley in tech series", "wellesley in the world", "wellesley writes it", "wu review", ""]
+      var counters = [];
+      
+      for(var i=0; i<filters.length; i++){
+        for (var j=0; j<counters.length; j++){
+        counters[j] = Posts.find({tags: {$in: [filters[i]]}}).count();
+        } console.log("This is the array of counters1: " + counters[i]);
+      } console.log("This is the array of counters2: " + counters);
+      
       Meteor.publish('thePosts', function(){
        return Posts.find({});
       })

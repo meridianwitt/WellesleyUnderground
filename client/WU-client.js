@@ -76,7 +76,7 @@ Template.posts.helpers({
     }
 })
 
-Meteor.wrapAsync(counter, buttonVal); //with this, threw error that the function does not exist
+//Meteor.wrapAsync(counter, buttonVal); //with this, threw error that the function does not exist
 
 Template.nav.helpers({ //don't know how to load this at the appropriate time
     counter: function(buttonVal){ //another way to use one counter helper method?
@@ -86,7 +86,14 @@ Template.nav.helpers({ //don't know how to load this at the appropriate time
     }
 })
 
-//Template.nav.rendered = function(buttonVal) { //deprecated
+//Template.d3.helpers({
+//    var allCounters = [1,2,3] //testing with random numbers for now so I can just plug in
+//    .data(allCounters)
+//    .enter
+//    .append
+//})
+
+//Template.nav.OnRendered(function(buttonVal) { //deprecated
 //    return Posts.find({tags: {$in: [buttonVal]}}).count()
 ////    })
 //}
