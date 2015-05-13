@@ -3,8 +3,8 @@ var arrayTags = [];
 //when server is ready
 Meteor.subscribe('thePosts');
 Posts = new Mongo.Collection("posts");
-PostsF = new Mongo.Collection("postsF");
-Session.setDefault("filter", "");
+//PostsF = new Mongo.Collection("postsF");
+//Session.set("postList", []);
 
 Template.nav.events({ //give all the buttons a filter class, innerHTML will be used as session variable, 
       "click .filter": function(event){
@@ -18,8 +18,6 @@ Template.nav.events({ //give all the buttons a filter class, innerHTML will be u
 Template.posts.helpers({
    postList: function(){ //received session variable and filters accordingly
        var curFilter = Session.get("filter");
-    
-       var counter = 0;
         if (curFilter != "") {
 //               console.log("This is the filter because the Session variable is set and saved: " + curFilter)
 //            PostListF = [];
@@ -31,6 +29,7 @@ Template.posts.helpers({
 //                    Posts.update(this, {filter: true})}})
 //                    return Posts.find({filter: true});
                 Meteor.call('filtered', returnSess());
+                return Session.get("postList");
 //              return PostListF; //need a method to find button value in the array of tags
         } else {
         return Posts.find(); //Posts.find() works here
