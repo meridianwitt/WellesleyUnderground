@@ -8,8 +8,10 @@ Session.setDefault("filter", "");
 
 Template.nav.events({ //give all the buttons a filter class, innerHTML will be used as session variable, 
       "click .filter": function(event){
-           var filterB = event.target.innerHTML; //also go to thge WU site and get the EXACT TAGS
-           filter = filterB.toLowerCase();
+//           var filterB = event.target.innerHTML; //also go to thge WU site and get the EXACT TAGS
+           var filterB = $(event.target).attr("value"); //also go to thge WU site and get the EXACT TAGS
+           filter = filterB;
+            console.log("This is the value of the filter I clicked: " + filter)
 //           console.log(filter); 
            Session.set("filter", filter);
    }

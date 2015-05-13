@@ -82,6 +82,7 @@ function retrieve(offset){
 //                }})
                     
                     console.log("Number of filtered posts: " + Posts.find({tags: {$in: [curFilter]}}).count());
+                    console.log("What is being returned: " + Posts.find({tags: {$in: [curFilter]}}).fetch())
                     return Posts.find({tags: {$in: [curFilter]}}).fetch();
 //                    return Posts.find({filter: true});
     }
