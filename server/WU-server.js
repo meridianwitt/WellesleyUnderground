@@ -74,7 +74,6 @@ function retrieve(offset){
    }
       console.log("Number in database after: " + inDB);
       
-      
       Meteor.publish('thePosts', function(){
        return Posts.find({});
       })

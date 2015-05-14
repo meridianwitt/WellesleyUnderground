@@ -14,7 +14,7 @@ Template.nav.events({ //give all the buttons a filter class, innerHTML will be u
 //           var filterB = $(event.target).attr("value");
 //           var filterB;
           //also go to thge WU site and get the EXACT TAGS
-           if ($(event.target).attr("value") == undefined){
+           if ($(event.target).attr("value") == undefined){ //have to click twice, to get the undefined first
              $("#dropdown-list li").click(function() {
                  filter = $(this).attr("value")});
            } else {
@@ -83,7 +83,11 @@ Template.posts.helpers({
 Template.nav.helpers({ //don't know how to load this at the appropriate time
     counter: function(buttonVal){ //another way to use one counter helper method?
 //        Meteor.startup({
-        return Posts.find({tags: {$in: [buttonVal]}}).count()
+//        return Posts.find({tags: {$in: [buttonVal]}}).count()
+        Session.set("tags",Tags.find({name: buttonVal}, {count: true, _id:0})) //find the count of a particular tags
+//        Session.set("tags",Tags.find({name: buttonVal})) //find the count of a particular tags
+//        console.log("Tags: " + Tags.find({name: buttonVal}, {count: true, _id:0}))  
+        return Session.get("tags");
 //    })
     }
 })
