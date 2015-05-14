@@ -16,6 +16,7 @@
 <template name="d3">
   <svg id="circleCount">   
       <g><text x="50" y="50">Where circle goes</text></g>
+<!--      {{make}}-->
   </svg>
 </template>
 
@@ -31,10 +32,11 @@
             <span class="glyphicon glyphicon-search"></span> Search
         </button>
 -->
-        
+        {{#if currentUser}}
         <button type="button" class="btn btn-default">
             <span class="glyphicon glyphicon-floppy-disk"></span> Save this filter
         </button>
+        {{/if}}
     </div>
     
     <div class="btn-group">
@@ -73,6 +75,7 @@
     <h3>Number of posts: {{postListCount}}</h3>
     {{#each postList}}
    
+    <span class="glyphicon glyphicon-star-empty"></span>
     {{#if body}}
     <a href="{{link}}">
         <div class="well">

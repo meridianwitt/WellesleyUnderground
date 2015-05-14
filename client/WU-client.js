@@ -7,6 +7,7 @@ Posts = new Mongo.Collection("posts");
 //PostsF = new Mongo.Collection("postsF");
 Tags = new Meteor.Collection("tags");
 Session.setDefault("filter", "");
+Session.setDefault("newFilter", "");
 
 Template.nav.events({ //give all the buttons a filter class, innerHTML will be used as session variable, 
       "click .filter": function(event){
@@ -44,7 +45,9 @@ Template.posts.helpers({
 //                    Posts.update(this, {filter: true})}})
 //                    return Posts.find({filter: true});
 //                Meteor.call('filtered', returnSess());
+                console.log("This is the current filter " + curFilter)
                 Session.set("numPosts", Posts.find({tags: {$in: [curFilter]}}).count())
+                Session.set("newFilter", "Posts.find({tags: {$in: [curFilter]}})");
                 return Posts.find({tags: {$in: [curFilter]}}); 
 //              return PostListF; //need a method to find button value in the array of tags
         } else {
@@ -94,6 +97,14 @@ Template.posts.helpers({
     }
 })
 
+Template.posts.events({
+    'click .glyphicon-star-empty':function(){
+        $(event.target).attr("class", "glyphicon glyphicon-star");
+        
+//        var postId = this._id;
+//	    Session.set('selectedPost', postId);
+    }
+})
 //Meteor.wrapAsync(counter, buttonVal); //with this, threw error that the function does not exist
 
 Template.nav.helpers({ //don't know how to load this at the appropriate time
@@ -114,11 +125,20 @@ Template.nav.helpers({ //don't know how to load this at the appropriate time
 })
 
 Template.nav.events({
-    'keypress #ex3': function(){
+    'keyup #ex3': function(){
 //       
-            var value = $("#ex3").val(this.value)
-            $( "#typed" ).text( value );
-          }
+        var input = document.getElementById("ex3");
+        var searchTerm = input.value;
+    
+        var typed = document.getElementById("typed");
+        typed.innerText = "The text box contains: "+searchTerm;
+        Session.set("filter",+searchTerm); 
+//        console.log("This is typing: " + Session.get("filter"))
+    },
+    
+    'click #save':{
+        //create new filter Posts.find({tags: {$in: [curFilter]}})
+    }
 
 })
 
@@ -128,6 +148,11 @@ Template.nav.events({
 //    .enter
 //    .append
 //})
+
+Template.d3.helpers({
+    make:function(){}
+   
+})
 
 function returnSess(){
     return Session.get("filter");
