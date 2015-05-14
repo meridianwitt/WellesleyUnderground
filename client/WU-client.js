@@ -2,8 +2,10 @@ var filter;
 var arrayTags = [];
 //when server is ready
 Meteor.subscribe('thePosts');
+Meteor.subscribe('theTags');
 Posts = new Mongo.Collection("posts");
-PostsF = new Mongo.Collection("postsF");
+//PostsF = new Mongo.Collection("postsF");
+Tags = new Meteor.Collection("tags");
 Session.setDefault("filter", "");
 
 Template.nav.events({ //give all the buttons a filter class, innerHTML will be used as session variable, 

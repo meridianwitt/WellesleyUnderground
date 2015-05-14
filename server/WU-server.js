@@ -15,6 +15,7 @@
 //var offset = 0;
 
 Posts = new Mongo.Collection("posts");
+Tags = new Meteor.Collection("tags");
 //Session.setDefault("filter","");
 
 var URL = "http://api.tumblr.com/v2/blog/wellesleyunderground.tumblr.com/posts/?api_key=wLtyjO5g0zQWJHFRycQxzWIMUjr3j1l16JpWr4aKirMFg6u8cL&offset=";  // notice that I made some changes to the URL
@@ -66,15 +67,21 @@ function retrieve(offset){
       
       //creating an array, considering doing all the counters in a for loop somehow? create an array that holds all the counter totals
       var filters = ["wellesley alternative class notes", "YAOTM entry", "open letter series", "wellesley in art series", "wellesley in comedy", "wellesley in politics series", "wellesley in STEM series", "wellesley in tech series", "wellesley in the world", "wellesley writes it", "wu review", ""]
-      var counters = [];
+//      var counters = [];
+//      
+//      for(var i=0; i<filters.length; i++){
+//        for (var j=0; j<counters.length; j++){
+//        counters[j] = Posts.find({tags: {$in: [filters[i]]}}).count();
+//        } console.log("This is the array of counters1: " + counters);
+//      } console.log("This is the array of counters2: " + counters);
       
-      for(var i=0; i<filters.length; i++){
-        for (var j=0; j<counters.length; j++){
-        counters[j] = Posts.find({tags: {$in: [filters[i]]}}).count();
-        } console.log("This is the array of counters1: " + counters[i]);
-      } console.log("This is the array of counters2: " + counters);
+      
       
       Meteor.publish('thePosts', function(){
        return Posts.find({});
       })
+      
+      Meteor.publish('theTags', function(){
+        return Tags.find({});
+      }
     })
