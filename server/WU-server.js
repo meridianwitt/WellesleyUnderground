@@ -38,8 +38,17 @@ function retrieve(offset){
           user_saved: false, //change with .update when user clicks on the star or whatever
           filter: false
       }) // store posts in the Posts collection
+      
+      //when you are adding the posts to the database, grab their array of tags and then start inserting them in a special collection. 
+      //Here is an example that does insert and update together (called upsert):
+      
+        var data = response.data.response.posts[i].tags;
+        for (i in response.data.response.posts[i].tags){
+        Tags.upsert({'name': data[i]}, { $inc: {'count': 1}}); 
+        }
     }
 //    Session.set("gotPosts", Posts);
+//Tags.find({name: "wellesley"}, {count: true, _id:0}) //find the count of a particular tags
 }
 
 //compare that number to the total number of posts already stored in the database (Posts.find().count())
@@ -59,22 +68,11 @@ function retrieve(offset){
       console.log("Num iterations: " + numPosts/20);
               
 //for (var i=0; i < numPosts/20; i++
-    for (var i=0; i < numPosts/20; i++){ //Eni had it as 3 to grab 60 posts, consider pulling 60 at first, next button triggers pull more posts
+    for (var i=0; i < 5; i++){ //Eni had it as 3 to grab 60 posts, consider pulling 60 at first, next button triggers pull more posts
       retrieve(i*20);
     }
    }
       console.log("Number in database after: " + inDB);
-      
-      //creating an array, considering doing all the counters in a for loop somehow? create an array that holds all the counter totals
-      var filters = ["wellesley alternative class notes", "YAOTM entry", "open letter series", "wellesley in art series", "wellesley in comedy", "wellesley in politics series", "wellesley in STEM series", "wellesley in tech series", "wellesley in the world", "wellesley writes it", "wu review", ""]
-//      var counters = [];
-//      
-//      for(var i=0; i<filters.length; i++){
-//        for (var j=0; j<counters.length; j++){
-//        counters[j] = Posts.find({tags: {$in: [filters[i]]}}).count();
-//        } console.log("This is the array of counters1: " + counters);
-//      } console.log("This is the array of counters2: " + counters);
-      
       
       
       Meteor.publish('thePosts', function(){
@@ -83,5 +81,5 @@ function retrieve(offset){
       
       Meteor.publish('theTags', function(){
         return Tags.find({});
-      }
+      })
     })
