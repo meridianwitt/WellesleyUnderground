@@ -36,6 +36,10 @@
         <button type="button" class="btn btn-default">
             <span class="glyphicon glyphicon-floppy-disk"></span> Save this filter
         </button>
+        
+         <button type="button" class="btn btn-default" id="savedArt">
+             My saved articles
+        </button>
         {{/if}}
     </div>
     
@@ -75,7 +79,10 @@
     <h3>Number of posts: {{postListCount}}</h3>
     {{#each postList}}
    
-    <span class="glyphicon glyphicon-star-empty"></span>
+    {{#if currentUser}}
+    <span class="glyphicon glyphicon-star-empty" id="saveIcon"></span>
+    {{/if}}
+    
     {{#if body}}
     <a href="{{link}}">
         <div class="well">

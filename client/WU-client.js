@@ -8,6 +8,9 @@ Posts = new Mongo.Collection("posts");
 Tags = new Meteor.Collection("tags");
 Session.setDefault("filter", "");
 Session.setDefault("newFilter", "");
+//Session.setDefault('selectedPost', "");
+Session.setDefault('userClick', false);
+
 
 Template.nav.events({ //give all the buttons a filter class, innerHTML will be used as session variable, 
       "click .filter": function(event){
@@ -31,30 +34,26 @@ Template.nav.events({ //give all the buttons a filter class, innerHTML will be u
 Template.posts.helpers({ 
    postList: function(){ //received session variable and filters accordingly
        var curFilter = Session.get("filter");
+       var curClick = Session.get("userClick");
        
     
        var counter = 0;
-        if (curFilter != "") {
-//               console.log("This is the filter because the Session variable is set and saved: " + curFilter)
-//            PostListF = [];
-//            var postF = Posts.find(); //assume it would work here
-//              postF.forEach(function(post){ //also useful for counter
-//                  Posts.update(this, {filter:false});
-////                  console.log("test"); //proof that it is going through eachs
-//                if(findTags(post, curFilter)){ //up to here seems to be right...
-//                    Posts.update(this, {filter: true})}})
-//                    return Posts.find({filter: true});
-//                Meteor.call('filtered', returnSess());
+//        if (curFilter != "" && userClick == false) {
+        if (curFilter != "" && curClick == false) {
                 console.log("This is the current filter " + curFilter)
                 Session.set("numPosts", Posts.find({tags: {$in: [curFilter]}}).count())
-                Session.set("newFilter", "Posts.find({tags: {$in: [curFilter]}})");
+//                Session.set("newFilter", "Posts.find({tags: {$in: [curFilter]}})");
                 return Posts.find({tags: {$in: [curFilter]}}); 
 //              return PostListF; //need a method to find button value in the array of tags
+        } else if (curClick == true){
+            Session.set("numPosts", Posts.find({user_saved: true}).count())
+//            Session.set("userClick", false)
+            return Posts.find({user_saved: true})
         } else {
         Session.set("numPosts", Posts.find().count())
         return Posts.find(); //Posts.find() works here
 //        counter = Posts.find().count
-        }
+        } 
    },
             
     tagList: function(){
@@ -70,7 +69,6 @@ Template.posts.helpers({
         return tag[0].count;
     },
     
-//    return Posts.find({});
     body1: function(){ ///FIX FOR POSTS WITH IMAGES, ones with pictures begin with undefined?
         //an image
         //var wholeBody = actualBody;
@@ -98,11 +96,16 @@ Template.posts.helpers({
 })
 
 Template.posts.events({
-    'click .glyphicon-star-empty':function(){
-        $(event.target).attr("class", "glyphicon glyphicon-star");
-        
+    'click #saveIcon':function(){
+        if ($(event.target).attr("class") == "glyphicon glyphicon-star-empty"){
+            $(event.target).attr("class", "glyphicon glyphicon-star")
+        } else {
+            $(event.target).attr("class", "glyphicon glyphicon-star-empty");
+        }
 //        var postId = this._id;
 //	    Session.set('selectedPost', postId);
+//        console.log(this._id);
+        Posts.update(this._id, {$set: {user_saved: ! this.user_saved}});
     }
 })
 //Meteor.wrapAsync(counter, buttonVal); //with this, threw error that the function does not exist
@@ -136,8 +139,9 @@ Template.nav.events({
 //        console.log("This is typing: " + Session.get("filter"))
     },
     
-    'click #save':{
+    'click #savedArt':function(){
         //create new filter Posts.find({tags: {$in: [curFilter]}})
+        Session.set("userClick", true);
     }
 
 })

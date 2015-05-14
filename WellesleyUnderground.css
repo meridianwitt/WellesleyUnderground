@@ -27,7 +27,7 @@
 .glyphicon-star{
     font-size: 25px;
     display: inline-block;
-
+/*    margin:0px;*/
     top: -10px;
     right: -150px;
 }
