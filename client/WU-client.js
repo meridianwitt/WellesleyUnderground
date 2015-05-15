@@ -180,8 +180,8 @@ Template.d3.helpers({
 Template.d3.onRendered(function(){
 //    var svgArea = d3.select("#barGraphSpace");
     
-    var w = 300;
-    var h = 125;
+    var w = 600;
+    var h = 250;
     
     var counters = Session.get("counters");
     
