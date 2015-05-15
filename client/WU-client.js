@@ -201,10 +201,11 @@ Template.d3.onRendered(function(){
 //    var svgArea = d3.select("#barGraphSpace");
     
       var tagsArrays =  Tags.find({}, {sort: {count: -1}, limit:10});
-        var tagCountArray = [];
-        var i=0;
+//      console.log("tags: " +tagsArrays)
+      var i=0;
+//      console.log("about to go to each")
             tagsArrays.forEach(function(tag){
-    //          console.log("Score: " + tag.count);
+                console.log("Score: " + tag.count);
                 Session.set("array"+i, tag.count)
                 i++;
             }) 
@@ -220,7 +221,7 @@ Template.d3.onRendered(function(){
     
 //    var counters = Session.get("counters");
 //    var names = Session.get("names");
-    console.log("Values counters: ", counters);
+//    console.log("Values counters: ", counters);
     
     	var xScale = d3.scale.ordinal()
 							.domain(d3.range(counters.length))
