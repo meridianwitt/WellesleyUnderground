@@ -23,8 +23,12 @@
 <template name="d3">
   <svg id="circleCount">   
       <g><text x="50" y="50">Where circle goes</text></g>
-<!--      {{make}}-->
+      {{make}}
   </svg>
+    
+    {{#each popularPosts}}
+    {{name}}:{{count}}
+    {{/each}}
 </template>
 
 <template name="nav">

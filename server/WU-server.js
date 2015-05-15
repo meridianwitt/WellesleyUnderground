@@ -43,8 +43,8 @@ function retrieve(offset){
       //Here is an example that does insert and update together (called upsert):
       
         var data = response.data.response.posts[i].tags;
-        for (i in response.data.response.posts[i].tags){
-        Tags.upsert({'name': data[i]}, { $inc: {'count': 1}}); //attempted to add a grouping variable so I could average to find range for d3 
+        for (var i in response.data.response.posts[i].tags){
+        Tags.upsert({name: data[i]}, { $inc: {count: 1}}); //attempted to add a grouping variable so I could average to find range for d3 
         }
     }
 //    Session.set("gotPosts", Posts);
@@ -68,7 +68,7 @@ function retrieve(offset){
       console.log("Num iterations: " + numPosts/20);
               
 //for (var i=0; i < numPosts/20; i++
-    for (var i=0; i < 1; i++){ //Eni had it as 3 to grab 60 posts, consider pulling 60 at first, next button triggers pull more posts
+    for (var i=0; i < 5; i++){ //Eni had it as 3 to grab 60 posts, consider pulling 60 at first, next button triggers pull more posts
       retrieve(i*20);
     }
    }

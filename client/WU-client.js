@@ -148,17 +148,30 @@ Template.nav.events({
 
 Template.d3.helpers({
     popularPosts:function(){
-//        return Tags.find( { count: { $gt: value1, $lt: value2 } } );
-        Tags.aggregate( { $group: { tag: true, avg:{$avg: "$count" } } } );
+        var tagsArrays =  Tags.find({}, {sort: {count: -1}, limit:10});
+        var tagCountArray = [];
+        var i=0;
+            tagsArrays.forEach(function(tag){
+    //          console.log("Score: " + tag.count);
+                Session.set("array"+i, tag.count)
+                i++;
+            }) 
+        return Tags.find({}, {sort: {count: -1}, limit:10});
+
     },
+    
     make:function(){
-    var allCounters = [1,2,3] //testing with random numbers for now so I can just plug in
-    .data(allCounters)
-    .enter
-    .append
+        
+        var counters = [];
+        for(var i=0; i<9; i++){
+            counters[i] = Session.get("array"+i);
+        }
+        
+//        console.log(counters);
+        
+//    var allCounters = [1,2,3] //testing with random numbers for now so I can just plug in
+//    .data(counters)
+//    .enter
+//    .append
     }
 })
-
-//function returnSess(){
-//    return Session.get("filter");
-//}
