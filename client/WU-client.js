@@ -146,18 +146,19 @@ Template.nav.events({
 
 })
 
-//Template.d3.helpers({
-//    var allCounters = [1,2,3] //testing with random numbers for now so I can just plug in
-//    .data(allCounters)
-//    .enter
-//    .append
-//})
-
 Template.d3.helpers({
-    make:function(){}
-   
+    popularPosts:function(){
+//        return Tags.find( { count: { $gt: value1, $lt: value2 } } );
+        Tags.aggregate( { $group: { tag: true, avg:{$avg: "$count" } } } );
+    },
+    make:function(){
+    var allCounters = [1,2,3] //testing with random numbers for now so I can just plug in
+    .data(allCounters)
+    .enter
+    .append
+    }
 })
 
-function returnSess(){
-    return Session.get("filter");
-}
+//function returnSess(){
+//    return Session.get("filter");
+//}

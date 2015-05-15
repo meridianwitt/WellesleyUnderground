@@ -44,7 +44,7 @@ function retrieve(offset){
       
         var data = response.data.response.posts[i].tags;
         for (i in response.data.response.posts[i].tags){
-        Tags.upsert({'name': data[i]}, { $inc: {'count': 1}}); 
+        Tags.upsert({'name': data[i]}, { $inc: {'count': 1}}); //attempted to add a grouping variable so I could average to find range for d3 
         }
     }
 //    Session.set("gotPosts", Posts);
