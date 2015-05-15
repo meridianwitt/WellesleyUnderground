@@ -12,6 +12,8 @@ Session.setDefault("newFilter", "");
 Session.setDefault('userClick', false);
 Session.setDefault('counters', []);
 var counters = [];
+Session.setDefault('names', []);
+var names = [];
 
 
 Template.nav.events({ //give all the buttons a filter class, innerHTML will be used as session variable, 
@@ -162,9 +164,30 @@ Template.d3.helpers({
 
     },
     
+       popularPostsNames:function(){
+        var tagsArrays =  Tags.find({}, {sort: {count: -1}, limit:10});
+        var tagCountArray = [];
+        var i=0;
+            tagsArrays.forEach(function(tag){
+                Session.set("arrayName"+i, tag.name)
+                i++;
+            }) 
+//        return Tags.find({}, {sort: {count: -1}, limit:10});
+
+    },
+    
+      popularPostsNameArray:function(){
+        
+        for(var i=0; i<10; i++){
+            names[i] = Session.get("arrayName"+i);
+        }
+        
+        Session.set("names", names);
+    },
+    
     popularPostsArray:function(){
         
-        for(var i=0; i<9; i++){
+        for(var i=0; i<10; i++){
             counters[i] = Session.get("array"+i);
         }
         
@@ -184,6 +207,7 @@ Template.d3.onRendered(function(){
     var h = 125;
     
     var counters = Session.get("counters");
+    var names = Session.get("names");
     
     	var xScale = d3.scale.ordinal()
 							.domain(d3.range(counters.length))
@@ -217,6 +241,7 @@ Template.d3.onRendered(function(){
 			   });
 			//Create labels
 			svg.selectAll("text")
+//			   .data(names)
 			   .data(counters)
 			   .enter()
 			   .append("text")

@@ -57,6 +57,10 @@
 }
 */
 
+rect:hover {
+        fill: orange;
+}
+
 .dropdown{
     display:inline-block;
 }
