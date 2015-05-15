@@ -35,8 +35,8 @@ function retrieve(offset){
           body: response.data.response.posts[i].body,
           link: response.data.response.posts[i].short_url,
           tags: response.data.response.posts[i].tags,
-          user_saved: false, //change with .update when user clicks on the star or whatever
-          filter: false
+//          user_saved: false, //change with .update when user clicks on the star or whatever
+          savedBy: ""
       }) // store posts in the Posts collection
       
       //when you are adding the posts to the database, grab their array of tags and then start inserting them in a special collection. 

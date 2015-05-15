@@ -15,7 +15,6 @@ var counters = [];
 Session.setDefault('names', []);
 var names = [];
 
-
 Template.nav.events({ //give all the buttons a filter class, innerHTML will be used as session variable, 
       "click .filter": function(event){
 //           var filterB = event.target.innerHTML; //also go to thge WU site and get the EXACT TAGS
@@ -50,9 +49,9 @@ Template.posts.helpers({
                 return Posts.find({tags: {$in: [curFilter]}}); 
 //              return PostListF; //need a method to find button value in the array of tags
         } else if (curClick == true){
-            Session.set("numPosts", Posts.find({user_saved: true}).count())
+            Session.set("numPosts", Posts.find({savedBy: Meteor.userId()}).count())
 //            Session.set("userClick", false)
-            return Posts.find({user_saved: true})
+            return Posts.find({savedBy: Meteor.userId()})
         } else {
         Session.set("numPosts", Posts.find().count())
         return Posts.find(); //Posts.find() works here
@@ -66,11 +65,6 @@ Template.posts.helpers({
     
     postListCount: function(){
         return Session.get("numPosts");
-    },
-    
-    tagCount: function(button){
-        var tag = Tags.find({name: "wellesley"}).fetch();
-        return tag[0].count;
     },
     
     body1: function(){ ///FIX FOR POSTS WITH IMAGES, ones with pictures begin with undefined?
@@ -103,13 +97,16 @@ Template.posts.events({
     'click #saveIcon':function(){
         if ($(event.target).attr("class") == "glyphicon glyphicon-star-empty"){
             $(event.target).attr("class", "glyphicon glyphicon-star")
+             Posts.update(this._id, {$set:{savedBy: Meteor.userId()}});
         } else {
             $(event.target).attr("class", "glyphicon glyphicon-star-empty");
+             Posts.update(this._id, {$set:{savedBy: ""}});
         }
 //        var postId = this._id;
 //	    Session.set('selectedPost', postId);
 //        console.log(this._id);
-        Posts.update(this._id, {$set: {user_saved: ! this.user_saved}});
+
+//        Posts.update(this._id, {$set:{savedBy: Meteor.userId()}});
     }
 })
 //Meteor.wrapAsync(counter, buttonVal); //with this, threw error that the function does not exist
@@ -150,9 +147,60 @@ Template.nav.events({
 
 })
 
-Template.d3.helpers({
-    popularPosts:function(){
-        var tagsArrays =  Tags.find({}, {sort: {count: -1}, limit:10});
+Template.d3.helpers({ //wrap all in one functions, just put at beginning of onRendered
+//    popularPosts:function(){
+//        var tagsArrays =  Tags.find({}, {sort: {count: -1}, limit:10});
+//        var tagCountArray = [];
+//        var i=0;
+//            tagsArrays.forEach(function(tag){
+//    //          console.log("Score: " + tag.count);
+//                Session.set("array"+i, tag.count)
+//                i++;
+//            }) 
+//        return Tags.find({}, {sort: {count: -1}, limit:10});
+//
+//    },
+    
+//       popularPostsNames:function(){
+//        var tagsArrays =  Tags.find({}, {sort: {count: -1}, limit:10});
+//        var tagCountArray = [];
+//        var i=0;
+//            tagsArrays.forEach(function(tag){
+//                Session.set("arrayName"+i, tag.name)
+//                i++;
+//            }) 
+////        return Tags.find({}, {sort: {count: -1}, limit:10});
+//
+//    },
+//    
+//      popularPostsNameArray:function(){
+//        
+//        for(var i=0; i<10; i++){
+//            names[i] = Session.get("arrayName"+i);
+//        }
+//        
+////        Session.set("names", names);
+////    },
+////    
+//    popularPostsArray:function(){
+//        
+//        for(var i=0; i<10; i++){
+//            counters[i] = Session.get("array"+i);
+//        }
+//        
+//        Session.set("counters", counters);
+//        
+////    var allCounters = [1,2,3] //testing with random numbers for now so I can just plug in
+////    .data(counters)
+////    .enter
+////    .append
+//    }
+})
+
+Template.d3.onRendered(function(){
+//    var svgArea = d3.select("#barGraphSpace");
+    
+      var tagsArrays =  Tags.find({}, {sort: {count: -1}, limit:10});
         var tagCountArray = [];
         var i=0;
             tagsArrays.forEach(function(tag){
@@ -160,54 +208,19 @@ Template.d3.helpers({
                 Session.set("array"+i, tag.count)
                 i++;
             }) 
-        return Tags.find({}, {sort: {count: -1}, limit:10});
-
-    },
-    
-       popularPostsNames:function(){
-        var tagsArrays =  Tags.find({}, {sort: {count: -1}, limit:10});
-        var tagCountArray = [];
-        var i=0;
-            tagsArrays.forEach(function(tag){
-                Session.set("arrayName"+i, tag.name)
-                i++;
-            }) 
-//        return Tags.find({}, {sort: {count: -1}, limit:10});
-
-    },
-    
-      popularPostsNameArray:function(){
-        
-        for(var i=0; i<10; i++){
-            names[i] = Session.get("arrayName"+i);
-        }
-        
-        Session.set("names", names);
-    },
-    
-    popularPostsArray:function(){
-        
-        for(var i=0; i<10; i++){
+            
+          for(var i=0; i<10; i++){
             counters[i] = Session.get("array"+i);
         }
         
         Session.set("counters", counters);
-        
-//    var allCounters = [1,2,3] //testing with random numbers for now so I can just plug in
-//    .data(counters)
-//    .enter
-//    .append
-    }
-})
-
-Template.d3.onRendered(function(){
-//    var svgArea = d3.select("#barGraphSpace");
     
     var w = 300;
     var h = 125;
     
-    var counters = Session.get("counters");
-    var names = Session.get("names");
+//    var counters = Session.get("counters");
+//    var names = Session.get("names");
+    console.log("Values counters: ", counters);
     
     	var xScale = d3.scale.ordinal()
 							.domain(d3.range(counters.length))
