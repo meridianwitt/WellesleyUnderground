@@ -10,6 +10,8 @@ Session.setDefault("filter", "");
 Session.setDefault("newFilter", "");
 //Session.setDefault('selectedPost', "");
 Session.setDefault('userClick', false);
+Session.setDefault('counters', []);
+var counters = [];
 
 
 Template.nav.events({ //give all the buttons a filter class, innerHTML will be used as session variable, 
@@ -160,18 +162,75 @@ Template.d3.helpers({
 
     },
     
-    make:function(){
+    popularPostsArray:function(){
         
-        var counters = [];
         for(var i=0; i<9; i++){
             counters[i] = Session.get("array"+i);
         }
         
-//        console.log(counters);
+        Session.set("counters", counters);
         
 //    var allCounters = [1,2,3] //testing with random numbers for now so I can just plug in
 //    .data(counters)
 //    .enter
 //    .append
     }
+})
+
+Template.d3.onRendered(function(){
+//    var svgArea = d3.select("#barGraphSpace");
+    
+    var w = 600;
+    var h = 250;
+    
+    var counters = Session.get("counters");
+    
+    	var xScale = d3.scale.ordinal()
+							.domain(d3.range(counters.length))
+							.rangeRoundBands([0, w], 0.05); //rounds and put space between
+			var yScale = d3.scale.linear()
+							.domain([0, d3.max(counters)])
+							.range([0, h]);
+			
+			//Create SVG element
+			var svg = d3.select("#barGraphSpace")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+			//Create bars
+			svg.selectAll("rect")
+			   .data(counters)
+			   .enter()
+			   .append("rect")
+			   .attr("x", function(d, i) {
+			   		return xScale(i);
+			   })
+			   .attr("y", function(d) {
+			   		return h - yScale(d);
+			   })
+			   .attr("width", xScale.rangeBand())
+			   .attr("height", function(d) {
+			   		return yScale(d);
+			   })
+			   .attr("fill", function(d) {
+					return "rgb(0, 0, " + (d * 10) + ")";
+			   });
+			//Create labels
+			svg.selectAll("text")
+			   .data(counters)
+			   .enter()
+			   .append("text")
+			   .text(function(d) {
+			   		return d;
+			   })
+			   .attr("text-anchor", "middle")
+			   .attr("x", function(d, i) {
+			   		return xScale(i) + xScale.rangeBand() / 2;
+			   })
+			   .attr("y", function(d) {
+			   		return h - yScale(d) + 14;
+			   })
+			   .attr("font-family", "sans-serif")
+			   .attr("font-size", "11px")
+			   .attr("fill", "white");
 })
