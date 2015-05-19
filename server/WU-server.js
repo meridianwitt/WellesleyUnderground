@@ -68,7 +68,7 @@ function retrieve(offset){
       console.log("Num iterations: " + numPosts/20);
               
 //for (var i=0; i < numPosts/20; i++
-    for (var i=0; i < 5; i++){ //Eni had it as 3 to grab 60 posts, consider pulling 60 at first, next button triggers pull more posts
+    for (var i=0; i < numPosts/20; i++){ //Eni had it as 3 to grab 60 posts, consider pulling 60 at first, next button triggers pull more posts
       retrieve(i*20);
     }
    }

@@ -15,6 +15,33 @@ var counters = [];
 Session.setDefault('names', []);
 var names = [];
 
+//Meteor.startup(function(){ 
+// 
+//      var tagsArrays =  Tags.find({}, {sort: {count: -1}, limit:10});
+//      console.log("tags: " +tagsArrays)
+//      var i=0;
+//      console.log("about to go to each")
+//            tagsArrays.forEach(function(tag){
+//                console.log("Score: " + tag.count);
+//                Session.set("array"+i, tag.count)
+//                i++;
+//            }) 
+//            
+//          for(var i=0; i<10; i++){
+//            counters[i] = Session.get("array"+i);
+//        }
+//        
+//        Session.set("counters", counters);
+//    
+////    var w = 300;
+////    var h = 125;
+//    
+////    var counters = Session.get("counters");
+////    var names = Session.get("names");
+//    console.log("Values counters: " , counters);
+//    
+//})
+
 Template.nav.events({ //give all the buttons a filter class, innerHTML will be used as session variable, 
       "click .filter": function(event){
 //           var filterB = event.target.innerHTML; //also go to thge WU site and get the EXACT TAGS
@@ -160,7 +187,7 @@ Template.d3.helpers({ //wrap all in one functions, just put at beginning of onRe
 //        return Tags.find({}, {sort: {count: -1}, limit:10});
 //
 //    },
-    
+//    
 //       popularPostsNames:function(){
 //        var tagsArrays =  Tags.find({}, {sort: {count: -1}, limit:10});
 //        var tagCountArray = [];
@@ -177,7 +204,7 @@ Template.d3.helpers({ //wrap all in one functions, just put at beginning of onRe
 //        
 //        for(var i=0; i<10; i++){
 //            names[i] = Session.get("arrayName"+i);
-//        }
+//        }},
 //        
 ////        Session.set("names", names);
 ////    },
@@ -188,24 +215,23 @@ Template.d3.helpers({ //wrap all in one functions, just put at beginning of onRe
 //            counters[i] = Session.get("array"+i);
 //        }
 //        
-//        Session.set("counters", counters);
-//        
-////    var allCounters = [1,2,3] //testing with random numbers for now so I can just plug in
-////    .data(counters)
-////    .enter
-////    .append
-//    }
+//        Session.set("counters", counters);}
+////        
+//////    var allCounters = [1,2,3] //testing with random numbers for now so I can just plug in
+//////    .data(counters)
+//////    .enter
+//////    .append////    }
 })
 
 Template.d3.onRendered(function(){
 //    var svgArea = d3.select("#barGraphSpace");
     
       var tagsArrays =  Tags.find({}, {sort: {count: -1}, limit:10});
-//      console.log("tags: " +tagsArrays)
+      console.log("tags: " +tagsArrays)
       var i=0;
-//      console.log("about to go to each")
+      console.log("about to go to each")
             tagsArrays.forEach(function(tag){
-                console.log("Score: " + tag.count);
+                console.log("Score: " + tag[i].count);
                 Session.set("array"+i, tag.count)
                 i++;
             }) 
@@ -221,7 +247,7 @@ Template.d3.onRendered(function(){
     
 //    var counters = Session.get("counters");
 //    var names = Session.get("names");
-//    console.log("Values counters: ", counters);
+    console.log("Values counters: " , counters);
     
     	var xScale = d3.scale.ordinal()
 							.domain(d3.range(counters.length))
